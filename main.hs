@@ -11,11 +11,12 @@ instance Show VarName where
   show (VarName n) = n
 
 -- |Well-formed formula
-data Formula  = Var VarName |
-                Not Formula |
-                And Formula Formula |
-                Or  Formula Formula
-                deriving (Show, Eq)
+data Formula  =
+      Var VarName |
+      Not Formula |
+      And Formula Formula |
+      Or  Formula Formula
+      deriving (Show, Eq)
 
 -- |Implication
 -- | A => B
@@ -23,25 +24,22 @@ impl :: Formula -> Formula -> Formula
 impl a b = Not a `Or` b
 
 -- |Tabueau result
--- |example) `EqTrue (VarName "P")` represens "if P is true, a formula satisfies."
-data TabRes = EqTrue VarName | EqFalse VarName deriving (Eq)
+-- |example) `TabRes True (VarName "P")` represens "if P is true, a formula satisfies."
+data TabRes = TabRes Bool VarName  deriving (Eq)
 
 -- |Show for TabRes
 instance Show TabRes where
-  show (EqTrue v)  = show v ++ "==" ++ "t"
-  show (EqFalse v) = show v ++ "==" ++ "f"
+  show (TabRes True v)  = show v ++ "==" ++ "t"
+  show (TabRes False v) = show v ++ "==" ++ "f"
 
 
 -- |Judges two TabRes are consistent or not
 isConsistent :: TabRes -> TabRes -> Bool
-isConsistent (EqTrue _)   (EqTrue _)   = True
-isConsistent (EqFalse _)   (EqFalse _) = True
-isConsistent (EqTrue n1)  (EqFalse n2) = n1 /= n2
-isConsistent (EqFalse n1) (EqTrue n2)  = n1 /= n2
+isConsistent (TabRes b1 n1) (TabRes b2 n2) = b1 == b2 || n1 /= n2
 
 -- |Judges a list of `TabRes`s is consistent or not
 areConsistent :: [TabRes] -> Bool
-areConsistent []     = True
+areConsistent []     = False
 areConsistent [_]    = True
 areConsistent (x:xs) =
   all (isConsistent x) xs && areConsistent xs
@@ -49,12 +47,12 @@ areConsistent (x:xs) =
 -- |Solve by tabueau
 -- |
 -- |return meaning)
--- | example) [[EqTrue Q, EqTrue P], [EqFalse P]]
+-- | example) [[TabRes True Q, TabRes True P], [TabRes False P]]
 -- | it means "the given fomula is satisfied, if (Q == true && P == true) || (P is false)"
 -- | so, if return is [], meaning is inconsisitent or no satisfiable
 solve :: Formula -> [[TabRes]]
-solve (Var name)             = [[EqTrue name]]
-solve (Not (Var name))       = [[EqFalse name]]
+solve (Var name)             = [[TabRes True name]]
+solve (Not (Var name))       = [[TabRes False name]]
 solve (Not (Not e))          = solve e                         -- Double Negation
 solve (Not (And e1 e2))      = solve $ Or  (Not e1) (Not e2)   -- De Morgan's laws
 solve (Not (Or  e1 e2))      = solve $ And (Not e1) (Not e2)   -- De Morgan's laws
@@ -85,12 +83,13 @@ test2 = do
       q = VarName "Q"
       r = VarName "R"
 
-  print $ isConsistent (EqTrue p) (EqTrue p)
-  print $ isConsistent (EqTrue p) (EqFalse p)
-  print $ isConsistent (EqTrue p) (EqFalse q)
+  print $ isConsistent (TabRes True p) (TabRes True p)
+  print $ isConsistent (TabRes True p) (TabRes False p)
+  print $ isConsistent (TabRes True p) (TabRes False q)
 
-  print $ areConsistent [EqTrue p, EqFalse q]
-  print $ areConsistent [EqTrue p, EqFalse q, EqFalse p]
+  print $ areConsistent [TabRes True p, TabRes False q]
+  print $ areConsistent [TabRes True p, TabRes False q, TabRes False p]
+
 
 -- |Solve: all abc patterns in a + b = c (a, b, c are element of {0, 1, 2})
 -- |examples)
