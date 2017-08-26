@@ -1,5 +1,7 @@
 -- A try to solve well-formed formula by tablueau
 
+module Main where
+
 import           Data.List
 
 -- |Variable name
