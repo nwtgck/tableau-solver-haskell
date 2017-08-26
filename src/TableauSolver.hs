@@ -75,11 +75,21 @@ solve (Not (Not e))          = solve e                         -- Double Negatio
 solve (Not (And e1 e2))      = solve $ Or  (Not e1) (Not e2)   -- De Morgan's laws
 solve (Not (Or  e1 e2))      = solve $ And (Not e1) (Not e2)   -- De Morgan's laws
 solve (Or  e1 e2)            = Set.union (solve e1) (solve e2)
-solve (And e1 e2)            = Set.fromList $ do -- TODO Don't use fromList
-  r1  <- Set.toList (solve e1)
-  r2  <- Set.toList (solve e2)
-  let union =  Set.union r1 r2
-  [union | areConsistent union {- areConsistent is for pruning -} ]
+solve (And f1 f2)            = let
+  s1 = solve f1
+  s2 = solve f2
+  in setFlatMap (\r1 ->
+    setFlatMap(\r2 ->
+      let union = Set.union r1 r2
+      in if areConsistent union
+        then Set.singleton union
+        else Set.empty
+    ) s2
+  ) s1
+
+-- | flatMap for Set
+setFlatMap :: Ord a => (a -> Set a) -> Set a -> Set a
+setFlatMap f = foldl (\accum e -> Set.union accum (f e)) Set.empty
 
 -- | Solve satisfiability
 satisfy :: Formula -> Bool
