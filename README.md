@@ -19,7 +19,38 @@ If you don't have stack command, you can install it by the following instruction
 https://docs.haskellstack.org/en/stable/README/#how-to-install
 
 
-## Actual Application
+## Actual Applications
+
+### Simple satisfiability problem
+
+**Q.** `(x1 ∨ ¬x2 ∨ x3) ∧ (¬x1 ∨ x2)` satisfies or not
+
+### Solution
+
+```hs
+let x1       = Var $ VarName "X1"
+    x2       = Var $ VarName "X2"
+    x3       = Var $ VarName "X3"
+    formula  = (x1 `Or` Not x2 `Or` x3) `And` (Not x1 `Or` x2) 
+    
+print(solve formula)
+```
+
+### Output
+
+```
+fromList [fromList [X1==f,X2==f],fromList [X1==f,X3==t],fromList [X1==t,X2==t],fromList [X2==t,X3==t]]
+```
+
+* `t` means `True`.
+* `f` means `False`
+
+So this means that `(x1 ∨ ¬x2 ∨ x3) ∧ (¬x1 ∨ x2)` satisfies where
+* `x1` == `False`, `x2` == `False` and `x3` == anything or
+* `x1` == `False`, `x3` == `True` and `x2` == anything or
+* `x1` == `True`, `x2` == `True` and `x2` == anything or
+* `x2` == `True`, `x3` == `True` and `x` == anything
+
 
 ### `A + B = A` Problem
 
