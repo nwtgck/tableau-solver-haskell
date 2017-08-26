@@ -6,10 +6,10 @@ Tableau method can solve whether a logical formula is satisfy or not (=satisfiab
 
 (from: https://www.wikiwand.com/en/Method_of_analytic_tableaux)
 
-## How to run
+## How to test
 
 ```sh
-$ stack build --exec tableau-solver-exe
+$ stack test
 ```
 
 ### stack command
