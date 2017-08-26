@@ -5,34 +5,6 @@ import qualified Data.Set as Set
 import           Data.Set (Set)
 import           TableauSolver
 
--- | test
-test1 = do
-  let p = VarName "P"
-      q = VarName "Q"
-      r = VarName "R"
-
-  -- !P
-  print $ solve $ Not (Var p)
-  -- P ^ Q
-  print $ solve $ And (Var p) (Var q)
-  -- P v Q
-  print $ solve $ Or  (Var p) (Var q)
-  print $ solve $ Not (And (Var p) (Not (Var q)))
-  -- !(P ^ Q) ^ ((P v Q) ^ !Q)
-  print $ solve $ And (Not (And (Var p) (Not (Var q)))) (And (Or (Var p) (Var q)) (Not (Var q)))
-
-test2 = do
-  let p = VarName "P"
-      q = VarName "Q"
-      r = VarName "R"
-
-  print $ isConsistent (TabRes True p) (TabRes True p)
-  print $ isConsistent (TabRes True p) (TabRes False p)
-  print $ isConsistent (TabRes True p) (TabRes False q)
-
-  print $ areConsistent $ Set.fromList [TabRes True p, TabRes False q]
-  print $ areConsistent $ Set.fromList [TabRes True p, TabRes False q, TabRes False p]
-
 
 -- |Solve: all abc patterns in a + b = c (a, b, c are element of {0, 1, 2})
 -- |examples)
@@ -140,6 +112,4 @@ aPlusBisA = do
 
 main :: IO ()
 main = do
-  test1
-  test2
   aPlusBisA
