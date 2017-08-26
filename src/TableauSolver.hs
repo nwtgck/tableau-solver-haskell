@@ -9,7 +9,8 @@ module TableauSolver(
   TabRes(..),
   isConsistent,
   areConsistent,
-  solve
+  solve,
+  satisfy
 ) where
 
 
@@ -79,3 +80,7 @@ solve (And e1 e2)            = Set.fromList $ do -- TODO Don't use fromList
   r2  <- Set.toList (solve e2)
   let union =  Set.union r1 r2
   [union | areConsistent union {- areConsistent is for pruning -} ]
+
+-- | Solve satisfiability
+satisfy :: Formula -> Bool
+satisfy formula = not $ Set.null (solve formula)

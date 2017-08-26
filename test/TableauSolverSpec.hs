@@ -50,6 +50,21 @@ spec = do
         areConsistent (Set.fromList [TabRes True p, TabRes False q, TabRes False p]) `shouldBe` False
 
 
+  describe "satisfy" $ do
+    let x1 = Var $ VarName "X1"
+        x2 = Var $ VarName "X2"
+        x3 = Var $ VarName "X3"
+
+    it "returns True where x1 v x2 is given" $
+      satisfy (x1 `Or` x2) `shouldBe` True
+
+    it "returns False where x1 ^ !x1 is given" $
+      satisfy (x1 `And` Not x1) `shouldBe` False
+
+    it "returns True where ((x1 v !x2) v x3) ^ (!x1 v x2)" $
+      satisfy (((x1 `Or` Not x2) `Or` x3) `And` (Not x1 `Or` x2)) `shouldBe` True
+
+
   describe "solve" $ do
     let p = VarName "P"
         q = VarName "Q"
