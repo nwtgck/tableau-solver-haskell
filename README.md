@@ -1,4 +1,4 @@
-# Tableau solver in Haskell
+# Tableau solver in Haskell [![Build Status](https://travis-ci.org/nwtgck/tableau-solver-haskell.svg?branch=master)](https://travis-ci.org/nwtgck/tableau-solver-haskell)
 
 Tableau method can solve whether a logical formula is satisfy or not (=satisfiability: 充足可能性), contradiction (=矛盾) and tautology.
 
