@@ -1,8 +1,8 @@
-name:                tablueau
+name:                tableau-solver
 version:             0.1.0.0
 -- synopsis:
 -- description:
-homepage:            https://github.com/githubuser/tablueau#readme
+homepage:            https://github.com/githubuser/tableau-solver#readme
 license:             BSD3
 license-file:        LICENSE
 author:              Author name here
@@ -20,24 +20,24 @@ library
                      , containers
   default-language:    Haskell2010
 
-executable tablueau-exe
+executable tableau-solver-exe
   hs-source-dirs:      app
   main-is:             Main.hs
   ghc-options:         -threaded -rtsopts -with-rtsopts=-N
   build-depends:       base
-                     , tablueau
+                     , tableau-solver
                      , containers
   default-language:    Haskell2010
 
-test-suite tablueau-test
+test-suite tableau-solver-test
   type:                exitcode-stdio-1.0
   hs-source-dirs:      test
   main-is:             Spec.hs
   build-depends:       base
-                     , tablueau
+                     , tableau-solver
   ghc-options:         -threaded -rtsopts -with-rtsopts=-N
   default-language:    Haskell2010
 
 source-repository head
   type:     git
-  location: https://github.com/githubuser/tablueau
+  location: https://github.com/githubuser/tableau-solver

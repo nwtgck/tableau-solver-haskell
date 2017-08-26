@@ -4,5 +4,5 @@
 ## How to run
 
 ```sh
-$ stack build --exec tablueau-exe
+$ stack build --exec tableau-solver-exe
 ```

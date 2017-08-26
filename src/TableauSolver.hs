@@ -1,6 +1,6 @@
 {-# OPTIONS_GHC -O2 #-}
 
--- A try to solve well-formed formula by tablueau
+-- A try to solve well-formed formula by tableau
 
 module TableauSolver(
   VarName(..),
@@ -38,7 +38,7 @@ data Formula  =
 impl :: Formula -> Formula -> Formula
 impl a b = Not a `Or` b
 
--- |Tabueau result
+-- |Tableau result
 -- |example) `TabRes True (VarName "P")` represens "if P is true, a formula satisfies."
 data TabRes = TabRes Bool VarName  deriving (Eq, Ord)
 
@@ -61,7 +61,7 @@ areConsistent set = listAreConsistent (Set.toList set) -- TODO Don't use toList
     listAreConsistent (x:xs) =
       all (isConsistent x) xs && listAreConsistent xs
 
--- |Solve by tabueau
+-- |Solve by tableau
 -- |
 -- |return meaning)
 -- | example) [[TabRes True Q, TabRes True P], [TabRes False P]]
