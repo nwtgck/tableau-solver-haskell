@@ -1,14 +1,14 @@
 name:                tableau-solver
 version:             0.1.0.0
--- synopsis:
+synopsis:            Tableau solver in Haskell
 -- description:
-homepage:            https://github.com/githubuser/tableau-solver#readme
+homepage:            https://github.com/nwtgck/tableau-solver-haskell
 license:             BSD3
 license-file:        LICENSE
-author:              Author name here
-maintainer:          example@example.com
-copyright:           2017 Author name here
-category:            Web
+author:              Ryo Ota
+maintainer:          nwtgck@gmail.com
+copyright:           2017 Ryo Ota
+category:            Algorithms
 build-type:          Simple
 extra-source-files:  README.md
 cabal-version:       >=1.10
@@ -42,4 +42,4 @@ test-suite tableau-solver-test
 
 source-repository head
   type:     git
-  location: https://github.com/githubuser/tableau-solver
+  location: https://github.com/nwtgck/tableau-solver-haskell
