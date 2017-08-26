@@ -1,6 +1,6 @@
 # Tableau solver in Haskell
 
-Tableau method can solve whether a logical formula is satisfy or not (=satisfiability: 妥当性), contradiction (=矛盾) and tautology.
+Tableau method can solve whether a logical formula is satisfy or not (=satisfiability: 充足可能性), contradiction (=矛盾) and tautology.
 
 <img src="https://upload.wikimedia.org/wikipedia/en/a/ad/Partially_built_tableau.svg" />
 
