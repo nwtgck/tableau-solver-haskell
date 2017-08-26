@@ -1,0 +1,47 @@
+# (from: https://raw.githubusercontent.com/commercialhaskell/stack/master/doc/travis-simple.yml)
+
+# This is the simple Travis configuration, which is intended for use
+# on applications which do not require cross-platform and
+# multiple-GHC-version support. For more information and other
+# options, see:
+#
+# https://docs.haskellstack.org/en/stable/travis_ci/
+#
+# Copy these contents into the root directory of your Github project in a file
+# named .travis.yml
+
+# Use new container infrastructure to enable caching
+sudo: false
+
+# Do not choose a language; we provide our own build tools.
+language: generic
+
+# Caching so the next build will be fast too.
+cache:
+  directories:
+  - $HOME/.stack
+
+# Ensure necessary system libraries are present
+addons:
+  apt:
+    packages:
+      - libgmp-dev
+
+before_install:
+# Download and unpack the stack executable
+- mkdir -p ~/.local/bin
+- export PATH=$HOME/.local/bin:$PATH
+- travis_retry curl -L https://www.stackage.org/stack/linux-x86_64 | tar xz --wildcards --strip-components=1 -C ~/.local/bin '*/stack'
+
+install:
+# Build dependencies
+- stack --no-terminal --install-ghc test --only-dependencies
+
+script:
+# Build the package, its tests, and its docs and run the tests
+- stack --no-terminal test --haddock --no-haddock-deps
+
+notifications:
+  email: false
+  slack:
+    secure: "NJD6KI70nCO013NLjUvRujXmg0cp7hBJ3nqMji7UMIM3AurrUnnnjizDFRAf/Lwz01ZIvITpnvAoDInk1rVc8vk8A1VMBZTpPkOivFOI1aUuUeJuTCO1hGpAVD6E+5xVBAbPmPm2FZgxXfr/RipBZ4YIc4tv6fsNGPLz4RJJ5h9FHzMAiTpztVyRZkCz4/TGQp8N9LVzRDdiBH3nLRh57SC8UuxIDxD97r79G9m2iqlb/CSPZIYfBie0oPNi0oo0zwMBh9ypTBoCFvgmzHtApTVm4gFznPplHxkLcWBFImTihpiiuuT0UldzdWXZIW4AM+1rJyr4/IsziIbQhrwXsFn8l0wM/sIBbKmEkBl560ybngk7ZHTvibrWMI6iGzGsVMSLDdMMjBgFvwdMZY/aKvCc/ns6MDKuoZWLIkgq/RbS/2jq5xG0T7Zej0tLk8Dn03NbJUOo2GJ82HbSj6foKZHwGAo/HFJUttbmE69OG1eHfnwV05xzl8mHa8bsg9tM9SBiqano0+hKJrVc/s4Pgc4vfHALFBqijj6tVt+p2NpEool35fYV+p2yh6IZXgwLdUK/fnSylT6EuVdX4T2xDh8TmFrw0zFdT1BupwR63yw8oxqqArMsZInInMohrJlaaFMF8wKnYQKQBcJZ2Al16Q/mjPIsrZUBfypvOjnoegI="
