@@ -19,5 +19,6 @@ main = let
        bgroup "solve" [ bench "!(p v !q)"              $ whnf solve formula1
                       , bench "!(p v !q) || (!r && p)" $ whnf solve formula2
                       , bench "a+b=c problem"          $ whnf solve ExampleProblems.aPlusBEqC
+                      , bench "a+b=a problem"          $ whnf solve ExampleProblems.aPlusBEqA
                       ]
        ]
