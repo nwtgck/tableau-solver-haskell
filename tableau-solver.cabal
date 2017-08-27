@@ -31,6 +31,19 @@ test-suite tableau-solver-test
   ghc-options:         -threaded -rtsopts -with-rtsopts=-N
   default-language:    Haskell2010
 
+
+-- (from: https://github.com/Toxaris/coalgebraic-parsing/blob/master/coalgebraic-parsing.cabal)
+benchmark tableau-solver-bench
+  type:             exitcode-stdio-1.0
+  hs-source-dirs:   bench
+  main-is:          BenchMain.hs
+  -- other-modules:
+  build-depends:    base
+                  , tableau-solver
+                  , criterion
+  ghc-options:      -O2
+  default-language: Haskell2010
+
 source-repository head
   type:     git
   location: https://github.com/nwtgck/tableau-solver-haskell
