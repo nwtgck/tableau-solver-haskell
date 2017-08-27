@@ -1,6 +1,7 @@
 import Criterion.Main
 
 import TableauSolver
+import qualified ExampleProblems as ExampleProblems
 
 main = let
 
@@ -17,5 +18,6 @@ main = let
   in defaultMain [
        bgroup "solve" [ bench "!(p v !q)"              $ whnf solve formula1
                       , bench "!(p v !q) || (!r && p)" $ whnf solve formula2
+                      , bench "a+b=c problem"          $ whnf solve ExampleProblems.aPlusBEqC
                       ]
        ]
