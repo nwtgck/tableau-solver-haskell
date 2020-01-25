@@ -54,7 +54,7 @@ So this means that `(x1 ∨ ¬x2 ∨ x3) ∧ (¬x1 ∨ x2)` satisfies where
 
 ### `A + B = A` Problem
 
-**Q.** Find `a` and `b` which satisfy `a + b = a` where `a`, `b` ϵ `{0, 1, 2}`
+**Q.** Find `a` and `b` which satisfy `a + b = a` where `a`, `b` ∈ `{0, 1, 2}`
 
 How to solve this problem by using `tableau-solver`?
   
