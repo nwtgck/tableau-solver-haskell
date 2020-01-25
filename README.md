@@ -4,7 +4,7 @@ Tableau method can solve whether a logical formula is satisfy or not (=satisfiab
 
 <img src="https://upload.wikimedia.org/wikipedia/en/a/ad/Partially_built_tableau.svg" />
 
-(from: https://www.wikiwand.com/en/Method_of_analytic_tableaux)
+(from: <https://en.wikipedia.org/wiki/Method_of_analytic_tableaux>)
 
 ## How to test
 
